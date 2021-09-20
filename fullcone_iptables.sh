@@ -4,9 +4,7 @@ echo 正在安装编译所需依赖. . .
 
 echo 92.243.18.11 www.netfilter.org >> /etc/hosts
 
-yum remove firewalld -y
-
-yum install gcc gcc-c++ autoconf autogen -y
+apt install -y build-essential g++ autoconf autogen
 
 yum install libtool libtool-ltdl libtool-ltdl-devel bzip2 unzip -y
 
