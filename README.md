@@ -1,4 +1,4 @@
-# WireGuardServer
+# WireGuardServer_Debian10
 
 ## 警告⚠：此技术仅限用于个人搭建游戏加速器使用！！！若用于其他违法目的，后果自负！！！
 
