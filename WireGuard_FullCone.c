@@ -19,7 +19,7 @@ int DNS() {
     fclose(server_info);//使用系统默认DNS解析
     system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
-    system("systemctl start dnsmasq");
+    system("systemctl restart dnsmasq");
     system("systemctl enable dnsmasq");
     system("clear");
     return 0;
