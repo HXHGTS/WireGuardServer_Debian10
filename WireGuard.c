@@ -20,6 +20,7 @@ int DNS() {
     system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
     system("cp -f /etc/resolv.conf.bak /etc/resolvconf/resolv.conf.d/original");
+    system("cp -f /etc/resolv.conf.bak /run/resolvconf/resolv.conf");
     system("systemctl restart dnsmasq");
     system("systemctl enable dnsmasq");
     system("clear");
