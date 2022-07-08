@@ -100,14 +100,4 @@ lsmod | grep xt_FULLCONENAT
 
 echo -----------------------------------------------------
 
-echo 正在添加Fullcone规则. . .
-
-iptables -t nat -A POSTROUTING -o eth0 -j FULLCONENAT
-
-iptables -t nat -A PREROUTING -i eth0 -j FULLCONENAT
-
-ip6tables -t nat -A POSTROUTING -o eth0 -j FULLCONENAT
-
-ip6tables -t nat -A PREROUTING -i eth0 -j FULLCONENAT
-
 exit 0
