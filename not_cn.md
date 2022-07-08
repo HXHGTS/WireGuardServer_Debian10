@@ -2,10 +2,6 @@
 
 `apt update && apt install -y build-essential wget && wget https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/WireGuard.c -O WireGuard.c && chmod +x WireGuard.c && gcc -o WireGuard WireGuard.c && chmod +x WireGuard && ./WireGuard`
 
-### 海外服务器直接运行(支持v4/v6双栈网络)(仅支持Debian10):
-
-`apt update && apt install -y build-essential wget && wget https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/WireGuard_ipv6.c -O WireGuard.c && chmod +x WireGuard.c && gcc -o WireGuard WireGuard.c && chmod +x WireGuard && ./WireGuard`
-
 ### 海外服务器直接运行(支持FULLCONE)(仅支持Debian10):
 
 `apt update && apt install -y build-essential wget && wget https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/WireGuard_FullCone.c -O WireGuard.c && chmod +x WireGuard.c && gcc -o WireGuard WireGuard.c && chmod +x WireGuard && ./WireGuard`
