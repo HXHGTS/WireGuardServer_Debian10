@@ -15,13 +15,12 @@ int DNS() {
     printf("正在配置DNS. . .\n");
     server_info = fopen("/etc/dnsmasq.conf", "w");
     fprintf(server_info, "resolv-file=/etc/resolv.dnsmasq.conf\n");
-    fprintf(server_info, "listen-address=10.0.0.1\n");
+    fprintf(server_info, "listen-address=127.0.0.1,10.0.0.1\n");
     fclose(server_info);//使用系统默认DNS解析
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
     system("cp -f /etc/resolv.conf.bak /etc/resolvconf/resolv.conf.d/original");
     system("systemctl restart dnsmasq");
     system("systemctl enable dnsmasq");
-    system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
     system("clear");
     return 0;
 }
