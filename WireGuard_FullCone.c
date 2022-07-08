@@ -22,10 +22,10 @@ int DNS() {
     server_info = fopen("/etc/dnsmasq.hosts", "w");
     fprintf(server_info, "addn-hosts=/etc/dnsmasq.hosts\n");
     fclose(server_info);
-    system("systemctl start dnsmasq");
-    system("systemctl enable dnsmasq");
     system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
+    system("systemctl start dnsmasq");
+    system("systemctl enable dnsmasq");
     system("clear");
     return 0;
 }
