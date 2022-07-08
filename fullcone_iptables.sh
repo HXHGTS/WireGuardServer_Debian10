@@ -2,7 +2,7 @@
 
 echo 正在安装编译所需依赖. . .
 
-apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libreadline-dev zlib1g-dev git
+apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libreadline-dev zlib1g-dev git pkg-config
 
 echo 正在下载项目文件. . .
 
