@@ -10,7 +10,9 @@ cd /root
 
 git clone https://github.com/Chion82/netfilter-full-cone-nat netfilter-full-cone-nat
 
-git clone git://git.netfilter.org/iptables.git iptables
+wget https://www.netfilter.org/projects/iptables/files/iptables-1.8.8.tar.bz2 -O iptables-1.8.8.tar.bz2
+
+tar -jxvf iptables-1.8.8.tar.bz2
 
 echo 编译Fullcone模块. . .
 
@@ -26,11 +28,11 @@ echo 编译iptables. . .
 
 cd /root
 
-cp ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables/extensions/
+cp ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables-1.8.8/extensions/
 
-cp ~/netfilter-full-cone-nat/libip6t_FULLCONENAT.c ~/iptables/extensions/
+cp ~/netfilter-full-cone-nat/libip6t_FULLCONENAT.c ~/iptables-1.8.8/extensions/
 
-cd ~/iptables
+cd ~/iptables-1.8.8
 
 ln -sfv /usr/sbin/xtables-multi /usr/bin/iptables-xml
 
