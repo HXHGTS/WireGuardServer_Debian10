@@ -2,7 +2,7 @@
 
 echo 正在安装编译所需依赖. . .
 
-apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libreadline-dev zlib1g-dev git libmnl-dev libnftnl-dev
+apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libreadline-dev zlib1g-dev git libmnl-dev
 
 echo 正在下载项目文件. . .
 
@@ -10,9 +10,47 @@ cd /root
 
 git clone https://github.com/Chion82/netfilter-full-cone-nat netfilter-full-cone-nat
 
+wget https://www.netfilter.org/pub/libmnl/libmnl-1.0.5.tar.bz2 -O libmnl-1.0.5.tar.bz2
+
+wget https://www.netfilter.org/pub/libnftnl/libnftnl-1.2.2.tar.bz2 -O libnftnl-1.2.2.tar.bz2
+
 wget https://www.netfilter.org/projects/iptables/files/iptables-1.8.8.tar.bz2 -O iptables-1.8.8.tar.bz2
 
+echo 正在解压项目文件. . .
+
+tar -jxvf libmnl-1.0.5.tar.bz2
+
+tar -jxvf libnftnl-1.2.2.tar.bz2
+
 tar -jxvf iptables-1.8.8.tar.bz2
+
+echo 正在删除项目文件. . .
+
+rm -f libmnl-1.0.5.tar.bz2
+
+rm -f libnftnl-1.2.2.tar.bz2
+
+rm -f iptables-1.8.8.tar.bz2
+
+echo 编译安装libmnl. . .
+
+cd ~/libmnl-1.0.5
+
+./configure
+
+make
+
+make install
+
+echo 编译安装libnftnl. . .
+
+cd ~/libnftnl-1.2.2
+
+./configure
+
+make
+
+make install
 
 echo 编译Fullcone模块. . .
 
