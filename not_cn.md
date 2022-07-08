@@ -1,16 +1,18 @@
+## 海外服务器(仅支持Debian10)
+
 ### 安装前运行
 
 ```
 apt update && apt upgrade -y && apt dist-upgrade -y && reboot
 ```
 
-### 海外服务器直接运行(仅支持Debian10):
+### 普通安装:
 
 ```
 apt install -y build-essential wget && wget https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/WireGuard.c -O WireGuard.c && chmod +x WireGuard.c && gcc -o WireGuard WireGuard.c && chmod +x WireGuard && ./WireGuard
 ```
 
-### 海外服务器直接运行(支持FULLCONE)(仅支持Debian10):
+### 支持FULLCONE:
 
 ```
 apt install -y build-essential wget && wget https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/WireGuard_FullCone.c -O WireGuard.c && chmod +x WireGuard.c && gcc -o WireGuard WireGuard.c && chmod +x WireGuard && ./WireGuard
