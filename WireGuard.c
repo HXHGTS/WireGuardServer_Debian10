@@ -234,6 +234,6 @@ int AddUser() {
 }
 
 int KernelUpdate() {
-    system("curl -sSL https://cdn.jsdelivr.net/gh/HXHGTS/TCPOptimization/TCPO_debian10.sh | sh");
+    system("curl -sSL https://cdn.jsdelivr.net/gh/HXHGTS/WireGuardServer_Debian10/PreInstall.sh | sh");
     return 0;
 }
