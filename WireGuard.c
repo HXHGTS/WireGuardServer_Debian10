@@ -61,6 +61,7 @@ Menu:UI();
         system("vi /etc/wireguard/wg0.conf");
         system("systemctl start wg-quick@wg0");
         system("systemctl enable wg-quick@wg0");
+        system("resolvconf -u");
         printf("修改完成!\n");
     }
     else if (mode == 7) {
