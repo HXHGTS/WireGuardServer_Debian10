@@ -1,6 +1,6 @@
 ## 海外服务器(仅支持Debian10)
 
-### 安装前运行
+### 安装前运行：
 
 ```
 apt update && apt upgrade -y && apt dist-upgrade -y && reboot
