@@ -10,6 +10,8 @@ cd /root
 
 git clone https://github.com/Chion82/netfilter-full-cone-nat netfilter-full-cone-nat
 
+git clone git://git.netfilter.org/iptables.git iptables
+
 echo 编译Fullcone模块. . .
 
 cd ~/netfilter-full-cone-nat
@@ -23,8 +25,6 @@ insmod xt_FULLCONENAT.ko
 echo 编译iptables. . .
 
 cd /root
-
-git clone git://git.netfilter.org/iptables.git 
 
 cp ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables/extensions/
 
