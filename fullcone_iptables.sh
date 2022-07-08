@@ -8,7 +8,7 @@ echo 正在下载项目文件. . .
 
 cd /root
 
-git clone https://github.com/HXHGTS/netfilter-full-cone-nat/ netfilter-full-cone-nat
+git clone https://github.com/Chion82/netfilter-full-cone-nat netfilter-full-cone-nat
 
 echo 编译Fullcone模块. . .
 
