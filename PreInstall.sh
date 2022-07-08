@@ -20,7 +20,7 @@ echo "正在配置IPV4转发. . ."
 
 echo 'net.ipv4.ip_forward = 1' > /etc/sysctl.conf
 
-echo 'net.ipv6.conf.all.forwarding = 1' >> /etc/sysctl.conf
+#echo 'net.ipv6.conf.all.forwarding = 1' >> /etc/sysctl.conf
 
 echo 'fs.file-max = 51200' >> /etc/sysctl.conf
 
