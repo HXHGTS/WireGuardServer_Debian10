@@ -15,13 +15,8 @@ int DNS() {
     printf("正在配置DNS. . .\n");
     server_info = fopen("/etc/dnsmasq.conf", "w");
     fprintf(server_info, "resolv-file=/etc/resolv.dnsmasq.conf\n");
-    fprintf(server_info, "strict-order\n");
-    fprintf(server_info, "addn-hosts=/etc/dnsmasq.hosts\n");
+    fprintf(server_info, "listen-address=10.0.0.1\n");
     fclose(server_info);//使用系统默认DNS解析
-    system("cat /etc/resolv.conf | grep nameserver > /etc/resolv.dnsmasq.conf");
-    server_info = fopen("/etc/dnsmasq.hosts", "w");
-    fprintf(server_info, "addn-hosts=/etc/dnsmasq.hosts\n");
-    fclose(server_info);
     system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
     system("systemctl start dnsmasq");
