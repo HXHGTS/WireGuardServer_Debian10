@@ -137,7 +137,6 @@ int InstallWireGuard(){
     fprintf(server_config, "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE;service iptables save\n");//服务器防火墙配置
     fprintf(server_config, "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE;service iptables save\n");//服务器防火墙配置
     fprintf(server_config, "ListenPort = %d\n",ListenPort);//服务器监听端口
-    fprintf(server_config, "MTU = 1420\n");//服务器MTU
     fclose(server_config);
     system("rm -f /etc/wireguard/server_privatekey");
     printf("正在启动服务器. . . . . .\n");
@@ -206,7 +205,6 @@ int AddUser() {
     client_config = fopen(FileName, "a");
     fprintf(client_config, "Address = 10.0.0.%d/32\n",num);
     fprintf(client_config, "DNS = 10.0.0.1\n");
-    fprintf(client_config, "MTU = 1420\n");//客户端MTU
     fprintf(client_config, "\n[Peer]\n");
     fprintf(client_config, "AllowedIPs = 0.0.0.0/0\n");
     fprintf(client_config, "Endpoint = %s:%d\n",ServerName,ListenPort);
