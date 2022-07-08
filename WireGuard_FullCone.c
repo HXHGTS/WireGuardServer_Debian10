@@ -19,6 +19,7 @@ int DNS() {
     fclose(server_info);//使用系统默认DNS解析
     system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
+    system("cp -f /etc/resolv.conf.bak /etc/resolvconf/resolv.conf.d/original");
     system("systemctl restart dnsmasq");
     system("systemctl enable dnsmasq");
     system("clear");
@@ -40,11 +41,13 @@ Menu:UI();
     else if (mode == 3) {
         system("systemctl stop wg-quick@wg0");
         system("systemctl disable wg-quick@wg0");
+        system("resolvconf -u");
         printf("已关闭WireGuard!\n");
     }
     else if (mode == 4) {
         system("systemctl stop wg-quick@wg0");
         system("systemctl start wg-quick@wg0");
+        system("resolvconf -u");
         printf("已重启WireGuard!\n");
     }
     else if (mode == 5) {
@@ -58,6 +61,7 @@ Menu:UI();
         system("vi /etc/wireguard/wg0.conf");
         system("systemctl start wg-quick@wg0");
         system("systemctl enable wg-quick@wg0");
+        system("resolvconf -u");
         printf("修改完成!\n");
     }
     else if (mode == 7) {
@@ -80,6 +84,7 @@ Menu:UI();
         system("apt remove -y wireguard-dkms wireguard-tools");
         system("rm -rf /etc/wireguard");
         system("rm -rf /root/preload.sh");
+        system("resolvconf -u");
         printf("已销毁服务器!!!\n");
     }
     else {
