@@ -6,7 +6,7 @@ apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libre
 
 echo 正在下载项目文件. . .
 
-cd root
+cd /root
 
 git clone https://github.com/HXHGTS/netfilter-full-cone-nat/ netfilter-full-cone-nat
 
