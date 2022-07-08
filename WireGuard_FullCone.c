@@ -174,7 +174,6 @@ int AddUser() {
     fscanf(server_info, "%d", &ListenPort);
     fclose(server_info);
     system("clear");
-    system("wg genpsk > /etc/wireguard/psk");
     sprintf(command, "wg genkey | tee /etc/wireguard/%s_privatekey | wg pubkey > /etc/wireguard/%s_publickey", username, username);
     system(command);
     server_config = fopen("/etc/wireguard/wg0.conf", "a");
@@ -185,9 +184,7 @@ int AddUser() {
     system(command);
     server_config = fopen("/etc/wireguard/wg0.conf", "a");
     fprintf(server_config, "AllowedIPs = 10.0.0.%d/32\n", num);//客户端ip地址分配，不要修改
-    fprintf(server_config, "PresharedKey = ");
     fclose(server_config);
-    system("cat /etc/wireguard/psk >> /etc/wireguard/wg0.conf");//预共享密钥，不要修改
     server_config = fopen("/etc/wireguard/wg0.conf", "a");
     fprintf(server_config, "\n");
     fclose(server_config);
@@ -216,14 +213,8 @@ int AddUser() {
     sprintf(command, "cat /etc/wireguard/server_publickey >> /etc/wireguard/%s.conf", username);
     system(command);
     client_config = fopen(FileName, "a");
-    fprintf(client_config, "PresharedKey = ");
-    fclose(client_config);
-    sprintf(command, "cat /etc/wireguard/psk >> /etc/wireguard/%s.conf", username);
-    system(command);
-    client_config = fopen(FileName, "a");
     fprintf(client_config, "\n");
     fclose(client_config);
-    system("rm -f /etc/wireguard/psk");
     printf("\n成功添加用户！\n");
     printf("\n电脑版WireGuard客户端建议复制以下内容添加:\n\n");
     sprintf(command, "cat /etc/wireguard/%s.conf", username);
