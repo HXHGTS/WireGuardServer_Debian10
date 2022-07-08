@@ -25,6 +25,7 @@ int DNS() {
     system("systemctl start dnsmasq");
     system("systemctl enable dnsmasq");
     system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
+    system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
     system("clear");
     return 0;
 }
