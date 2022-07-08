@@ -22,7 +22,9 @@ insmod xt_FULLCONENAT.ko
 
 echo 编译iptables. . .
 
-git clone git://git.netfilter.org/iptables.git
+cd /root
+
+git clone git://git.netfilter.org/iptables.git 
 
 cp ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables/extensions/
 
