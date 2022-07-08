@@ -10,6 +10,7 @@ char FileName[36];
 int DNS() {
     system("mkdir -p /etc/wireguard");
     system("umask 077 /etc/wireguard");
+    system("cp -f /etc/resolv.conf /etc/resolv.conf.bak");
     system("apt install dnsutils resolvconf dnsmasq -y");
     printf("正在配置DNS. . .\n");
     server_info = fopen("/etc/dnsmasq.conf", "w");
@@ -23,6 +24,7 @@ int DNS() {
     fclose(server_info);
     system("systemctl start dnsmasq");
     system("systemctl enable dnsmasq");
+    system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
     system("clear");
     return 0;
 }
