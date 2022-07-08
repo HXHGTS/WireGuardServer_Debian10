@@ -121,8 +121,9 @@ int InstallWireGuard(){
     system("curl -s ifconfig.me/ip > /etc/wireguard/servername.info");
     system("clear");
     printf("正在安装WireGuard. . . . . .\n");
-    system("apt install iptables-services -y");
-    system("apt-get install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) qrencode");
+    system("apt upgrade -y");
+    system("apt dist-upgrade -y");
+    system("apt install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) qrencode");
     printf("正在编译安装fullcone iptables. . . . . .\n");
     system("curl -sSL https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/fullcone_iptables.sh | sh");
     printf("正在生成服务器配置. . . . . .\n");
