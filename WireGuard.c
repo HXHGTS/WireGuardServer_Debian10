@@ -227,6 +227,6 @@ int AddUser() {
 }
 
 int KernelUpdate() {
-    system("curl -sSL https://cdn.jsdelivr.net/gh/HXHGTS/WireGuardServer_Debian10/PreInstall.sh | sh");
+    system("curl -sSL https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/PreInstall.sh | sh");
     return 0;
 }
