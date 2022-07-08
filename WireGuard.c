@@ -117,11 +117,11 @@ int InstallWireGuard(){
         goto re1;
     }
     printf("正在检测本机ip地址，请稍后. . . . . .\n");
+    system("apt install -y curl");
     system("curl -s ifconfig.me/ip > /etc/wireguard/servername.info");
     system("clear");
     printf("正在安装WireGuard. . . . . .\n");
-    system("apt install iptables-services -y");
-    system("apt-get install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) qrencode");
+    system("apt install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) qrencode");
     printf("正在生成服务器配置. . . . . .\n");
     server_config = fopen("/etc/wireguard/wg0.conf", "w");
     fprintf(server_config, "[Interface]\n");
