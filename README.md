@@ -14,7 +14,7 @@ WireGuard搭建(支持Debian10/11)
 
 ### 客户端下载:
 
-[Windows](https://download.wireguard.com/windows-client/) [Android](https://f-droid.org/en/packages/com.wireguard.android/) [iOS](https://itunes.apple.com/us/app/wireguard/id1441195209?ls=1&mt=8)
+[Windows](https://download.wireguard.com/windows-client/) [Android](https://play.google.com/store/apps/details?id=com.wireguard.android&hl=zh&gl=US) [iOS](https://itunes.apple.com/us/app/wireguard/id1441195209?ls=1&mt=8)
 
 ### 使用方法:
 
