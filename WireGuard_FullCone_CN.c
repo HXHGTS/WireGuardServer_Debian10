@@ -135,8 +135,112 @@ int InstallWireGuard(){
     system("cat /etc/wireguard/server_privatekey >> /etc/wireguard/wg0.conf");//服务器私钥，不要修改
     server_config = fopen("/etc/wireguard/wg0.conf", "a");
     fprintf(server_config, "Address = 10.0.0.1/32\n");//服务器ip地址，修改需要同时修改客户端配置
-    fprintf(server_config, "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j FULLCONENAT\n");//服务器防火墙配置
-    fprintf(server_config, "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j FULLCONENAT\n");//服务器防火墙配置
+    fprintf(server_config, "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j FULLCONENAT; iptables -t nat -A PREROUTING -o eth0 -j FULLCONENAT\n");//服务器防火墙配置
+    fprintf(server_config, "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j FULLCONENAT; iptables -t nat -D PREROUTING -o eth0 -j FULLCONENAT\n");//服务器防火墙配置
+    fprintf(server_config, "ListenPort = %d\n",ListenPort);//服务器监听端口
+    fclose(server_config);
+    system("rm -f /etc/wireguard/server_privatekey");
+    printf("正在启动服务器. . . . . .\n");
+    system("systemctl enable wg-quick@wg0");
+    printf("服务器搭建完成！\n");
+    printf("正在默认添加用户1. . .\n");
+    AddUser();
+    printf("需要添加更多用户请使用\"添加用户\"功能!\n");
+    return 0;
+}
+
+int AddUser() {
+    if (fopen("/etc/wireguard/user1.conf", "r") == NULL) {
+        num = 2;
+    }
+    else {
+        for (ret = 1; ret <= 251; ret++) {
+            sprintf(command, "[ -f /etc/wireguard/user%d.conf ]", ret);
+            if (system(command) != 0 && ret < 251) {
+                num = ret + 1;
+                break;
+            }
+            if (ret == 251) {
+                printf("\n已超过最大人数限制!\n");//未来更新可能会修改此处限制，但250台设备限制暂时够用
+                exit(0);
+            }
+        }
+    }
+    sprintf(username, "user%d", num - 1);
+    server_info = fopen("/etc/wireguard/servername.info", "r");
+    fscanf(server_info, "%s", ServerName);
+    fclose(server_info);
+    server_info = fopen("/etc/wireguard/port.info", "r");
+    fscanf(server_info, "%d", &ListenPort);
+    fclose(server_info);
+    system("clear");
+    system("wg genpsk > /etc/wireguard/psk"); 
+    sprintf(command, "wg genkey | tee /etc/wireguard/%s_privatekey | wg pubkey > /etc/wireguard/%s_publickey", username, username);
+    system(command);
+    server_config = fopen("/etc/wireguard/wg0.conf", "a");
+    fprintf(server_config, "\n[Peer]\n");
+    fprintf(server_config, "PublicKey = ");
+    fclose(server_config);
+    sprintf(command, "cat /etc/wireguard/%s_publickey >> /etc/wireguard/wg0.conf", username);//客户端公钥，不要修改
+    system(command);
+    server_config = fopen("/etc/wireguard/wg0.conf", "a");
+    fprintf(server_config, "AllowedIPs = 10.0.0.%d/32\n", num);//客户端ip地址分配，不要修改
+    fprintf(server_config, "PresharedKey = ");
+    fclose(server_config); 
+    system("cat /etc/wireguard/psk >> /etc/wireguard/wg0.conf");//预共享密钥，不要修改
+    server_config = fopen("/etc/wireguard/wg0.conf", "a");
+    fprintf(server_config, "\n");
+    fclose(server_config);
+    system("systemctl stop wg-quick@wg0");
+    system("systemctl start wg-quick@wg0");
+    sprintf(FileName, "/etc/wireguard/%s_publickey", username);
+    client_pubkey = fopen(FileName, "r");
+    fgets(pubkey, 45, client_pubkey);
+    fclose(client_pubkey);
+    sprintf(FileName, "/etc/wireguard/%s.conf", username);
+    client_config = fopen(FileName, "w");
+    fprintf(client_config, "##Can be found in /etc/wireguard/%s.conf\n", username, username);
+    fprintf(client_config, "[Interface]\n");
+    fprintf(client_config, "PrivateKey = ");
+    fclose(client_config);
+    sprintf(command, "cat /etc/wireguard/%s_privatekey >> /etc/wireguard/%s.conf", username, username);
+    system(command);
+    client_config = fopen(FileName, "a");
+    fprintf(client_config, "Address = 10.0.0.%d/32\n", num);
+    fprintf(client_config, "DNS = 10.0.0.1\n");
+    fprintf(client_config, "\n[Peer]\n");
+    fprintf(client_config, "AllowedIPs = 0.0.0.0/0\n");
+    fprintf(client_config, "Endpoint = %s:%d\n", ServerName, ListenPort);
+    fprintf(client_config, "PublicKey = ");
+    fclose(client_config);
+    sprintf(command, "cat /etc/wireguard/server_publickey >> /etc/wireguard/%s.conf", username);
+    system(command);
+    client_config = fopen(FileName, "a");
+    fprintf(client_config, "PresharedKey = ");
+    fclose(client_config);
+    sprintf(command, "cat /etc/wireguard/psk >> /etc/wireguard/%s.conf",username);
+    system(command);
+    client_config = fopen(FileName, "a");
+    fprintf(client_config, "\n");
+    fclose(client_config); 
+    system("rm -f /etc/wireguard/psk");
+    printf("\n成功添加用户！\n");
+    printf("\n电脑版WireGuard客户端建议复制以下内容添加:\n\n");
+    sprintf(command, "cat /etc/wireguard/%s.conf", username);
+    system(command);
+    printf("\n\n手机版WireGuard客户端建议扫描以下二维码添加:\n\n");
+    sprintf(command, "qrencode -t ansiutf8 < /etc/wireguard/%s.conf", username);
+    system(command);
+    printf("\n生成的配置文件请不要在本机上改名或删除，如确实需要，请删除文件中内容，避免修改文件名!\n");
+    system("sleep 1");
+    return 0;
+}
+
+int KernelUpdate() {
+    system("curl -sSL https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/PreInstall.sh | sh");
+    return 0;
+}
+
     fprintf(server_config, "ListenPort = %d\n",ListenPort);//服务器监听端口
     fclose(server_config);
     system("rm -f /etc/wireguard/server_privatekey");
