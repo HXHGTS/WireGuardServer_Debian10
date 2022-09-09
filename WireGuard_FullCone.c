@@ -11,14 +11,13 @@ int DNS() {
     system("mkdir -p /etc/wireguard");
     system("umask 077 /etc/wireguard");
     system("cp -f /etc/resolv.conf /etc/resolv.conf.bak");
-    system("apt install dnsutils resolvconf dnsmasq -y");
+    system("apt install dnsutils dnsmasq -y");
     printf("正在配置DNS. . .\n");
     server_info = fopen("/etc/dnsmasq.conf", "w");
     fprintf(server_info, "resolv-file=/etc/resolv.dnsmasq.conf\n");
     fprintf(server_info, "listen-address=127.0.0.1,10.103.100.1\n");
     fclose(server_info);//使用系统默认DNS解析
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
-    system("cp -f /etc/resolv.conf.bak /etc/resolvconf/resolv.conf.d/original");
     system("systemctl restart dnsmasq");
     system("systemctl enable dnsmasq");
     system("clear");
