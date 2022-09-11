@@ -15,7 +15,7 @@ int DNS() {
     printf("正在配置DNS. . .\n");
     server_info = fopen("/etc/dnsmasq.conf", "w");
     fprintf(server_info, "resolv-file=/etc/resolv.dnsmasq.conf\n");
-    fprintf(server_info, "listen-address=127.0.0.1,10.103.100.1\n");
+    fprintf(server_info, "listen-address=127.0.0.1,10.103.100.1,fd10:0202:100::1\n");
     fclose(server_info);//使用系统默认DNS解析
     system("cp -f /etc/resolv.conf.bak /etc/resolv.dnsmasq.conf");
     system("systemctl restart dnsmasq");
@@ -39,13 +39,11 @@ Menu:UI();
     else if (mode == 3) {
         system("systemctl stop wg-quick@wg0");
         system("systemctl disable wg-quick@wg0");
-        system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
         printf("已关闭WireGuard!\n");
     }
     else if (mode == 4) {
         system("systemctl stop wg-quick@wg0");
         system("systemctl start wg-quick@wg0");
-        system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
         printf("已重启WireGuard!\n");
     }
     else if (mode == 5) {
@@ -59,7 +57,6 @@ Menu:UI();
         system("vi /etc/wireguard/wg0.conf");
         system("systemctl start wg-quick@wg0");
         system("systemctl enable wg-quick@wg0");
-        system("cp -f /etc/resolv.conf.bak /etc/resolv.conf");
         printf("修改完成!\n");
     }
     else if (mode == 7) {
@@ -119,7 +116,7 @@ int InstallWireGuard(){
     }
     printf("正在检测本机ip地址，请稍后. . . . . .\n");
     system("apt install -y curl");
-    system("curl -4 ip.sb > /etc/wireguard/servername.info");
+    system("curl -s ifconfig.me/ip > /etc/wireguard/servername.info");
     system("clear");
     printf("正在安装WireGuard. . . . . .\n");
     system("apt install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) qrencode");
@@ -131,9 +128,9 @@ int InstallWireGuard(){
     system("wg genkey | tee /etc/wireguard/server_privatekey | wg pubkey > /etc/wireguard/server_publickey");
     system("cat /etc/wireguard/server_privatekey >> /etc/wireguard/wg0.conf");//服务器私钥，不要修改
     server_config = fopen("/etc/wireguard/wg0.conf", "a");
-    fprintf(server_config, "Address = 10.103.100.1/32\n");//服务器ip地址，修改需要同时修改客户端配置
-    fprintf(server_config, "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE\n");//服务器防火墙配置
-    fprintf(server_config, "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE\n");//服务器防火墙配置
+    fprintf(server_config, "Address = 10.103.100.1/32,fd10:0202:100::1/128\n");//服务器ip地址，修改需要同时修改客户端配置
+    fprintf(server_config, "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE;ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -A FORWARD -o wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE\n");//服务器防火墙配置
+    fprintf(server_config, "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE;ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -D FORWARD -o wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE\n");//服务器防火墙配置
     fprintf(server_config, "ListenPort = %d\n",ListenPort);//服务器监听端口
     fclose(server_config);
     system("rm -f /etc/wireguard/server_privatekey");
@@ -182,7 +179,7 @@ int AddUser() {
     sprintf(command,"cat /etc/wireguard/%s_publickey >> /etc/wireguard/wg0.conf",username);//客户端公钥，不要修改
     system(command);
     server_config = fopen("/etc/wireguard/wg0.conf", "a");
-    fprintf(server_config, "AllowedIPs = 10.103.100.%d/32\n",num);//客户端ip地址分配，不要修改
+    fprintf(server_config, "AllowedIPs = 10.103.100.%d/32,fd10:0202:100::%d/128\n", num, num);//客户端ip地址分配，不要修改
     fprintf(server_config, "PresharedKey = ");
     fclose(server_config); 
     system("cat /etc/wireguard/psk >> /etc/wireguard/wg0.conf");//预共享密钥，不要修改
@@ -204,10 +201,10 @@ int AddUser() {
     sprintf(command, "cat /etc/wireguard/%s_privatekey >> /etc/wireguard/%s.conf", username,username);
     system(command);
     client_config = fopen(FileName, "a");
-    fprintf(client_config, "Address = 10.103.100.%d/32\n",num);
-    fprintf(client_config, "DNS = 10.103.100.1\n");
+    fprintf(client_config, "Address = 10.103.100.%d/32,fd10:0202:100::%d/128\n", num, num);
+    fprintf(client_config, "DNS = 10.103.100.1,fd10:0202:100::1\n");
     fprintf(client_config, "\n[Peer]\n");
-    fprintf(client_config, "AllowedIPs = 0.0.0.0/0\n");
+    fprintf(client_config, "AllowedIPs = 0.0.0.0/0,::0/0\n");
     fprintf(client_config, "Endpoint = %s:%d\n",ServerName,ListenPort);
     fprintf(client_config, "PublicKey = ");
     fclose(client_config);
