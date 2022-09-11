@@ -116,7 +116,7 @@ int InstallWireGuard(){
     }
     printf("正在检测本机ip地址，请稍后. . . . . .\n");
     system("apt install curl -y");
-    system("curl -s ifconfig.me/ip > /etc/wireguard/servername.info");
+    system("curl -s -4 api.myip.la > /etc/wireguard/servername.info");
     system("clear");
     printf("正在安装WireGuard. . . . . .\n");
     system("apt install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) qrencode");
