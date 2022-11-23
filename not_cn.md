@@ -18,6 +18,11 @@ apt install -y build-essential wget && wget https://raw.githubusercontent.com/HX
 apt install -y build-essential wget && wget https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/WireGuard_FullCone.c -O WireGuard.c && chmod +x WireGuard.c && gcc -o WireGuard WireGuard.c && chmod +x WireGuard && ./WireGuard
 ```
 
+### 支持FULLCONE(谷歌云):
+
+```
+apt install -y build-essential wget && wget https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/WireGuard_FullCone_GCP.c -O WireGuard.c && chmod +x WireGuard.c && gcc -o WireGuard WireGuard.c && chmod +x WireGuard && ./WireGuard
+```
 第一次点击安装后会自动升级系统内核并触发重启，重启后输入
 
 ```
