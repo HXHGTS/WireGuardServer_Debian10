@@ -232,6 +232,6 @@ int AddUser() {
 }
 
 int KernelUpdate() {
-    system("curl -sSL https://raw.iqiq.io/HXHGTS/WireGuardServer_Debian10/main/PreInstall.sh | sh");
+    system("curl -sSL https://raw.iqiq.io/HXHGTS/WireGuardServer_Debian10/main/PreInstall6.sh | sh");
     return 0;
 }
