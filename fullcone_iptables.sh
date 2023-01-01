@@ -66,9 +66,9 @@ echo 编译iptables. . .
 
 cd /root
 
-cp ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables-1.8.8/extensions/
+cp -f ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables-1.8.8/extensions/
 
-cp ~/netfilter-full-cone-nat/libip6t_FULLCONENAT.c ~/iptables-1.8.8/extensions/
+cp -f ~/netfilter-full-cone-nat/libip6t_FULLCONENAT.c ~/iptables-1.8.8/extensions/
 
 cd ~/iptables-1.8.8
 
@@ -86,7 +86,7 @@ make install
 
 echo 部署Fullcone模块. . .
 
-cp ~/netfilter-full-cone-nat/xt_FULLCONENAT.ko  /lib/modules/$(uname -r)/
+cp -f ~/netfilter-full-cone-nat/xt_FULLCONENAT.ko  /lib/modules/$(uname -r)/
 
 depmod
 
