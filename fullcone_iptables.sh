@@ -12,7 +12,7 @@ git clone https://github.com/Chion82/netfilter-full-cone-nat netfilter-full-cone
 
 wget https://www.netfilter.org/pub/libmnl/libmnl-1.0.5.tar.bz2 -O libmnl-1.0.5.tar.bz2
 
-wget https://www.netfilter.org/pub/libnftnl/libnftnl-1.2.2.tar.bz2 -O libnftnl-1.2.2.tar.bz2
+wget https://www.netfilter.org/pub/libnftnl/libnftnl-1.2.4.tar.bz2 -O libnftnl-1.2.4.tar.bz2
 
 wget https://www.netfilter.org/projects/iptables/files/iptables-1.8.8.tar.bz2 -O iptables-1.8.8.tar.bz2
 
@@ -20,7 +20,7 @@ echo 正在解压项目文件. . .
 
 tar -jxvf libmnl-1.0.5.tar.bz2
 
-tar -jxvf libnftnl-1.2.2.tar.bz2
+tar -jxvf libnftnl-1.2.4.tar.bz2
 
 tar -jxvf iptables-1.8.8.tar.bz2
 
@@ -28,7 +28,7 @@ echo 正在删除项目文件. . .
 
 rm -f libmnl-1.0.5.tar.bz2
 
-rm -f libnftnl-1.2.2.tar.bz2
+rm -f libnftnl-1.2.4.tar.bz2
 
 rm -f iptables-1.8.8.tar.bz2
 
@@ -44,7 +44,7 @@ make install
 
 echo 编译安装libnftnl. . .
 
-cd ~/libnftnl-1.2.2
+cd ~/libnftnl-1.2.4
 
 ./configure
 
