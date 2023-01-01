@@ -90,7 +90,7 @@ cp ~/netfilter-full-cone-nat/xt_FULLCONENAT.ko  /lib/modules/$(uname -r)/
 
 depmod
 
-echo "modprobe xt_FULLCONENAT" >> /etc/modules-load.d/fullconenat.conf
+echo "modprobe xt_FULLCONENAT" > /etc/modules-load.d/fullconenat.conf
 
 echo 下方有输出则安装完成:
 
