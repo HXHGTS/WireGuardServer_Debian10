@@ -2,11 +2,17 @@
 
 apt install -y build-essential net-tools iproute2 wget
 
-echo "正在配置IPV4/IPV6转发. . ."
+echo "正在配置IPV4转发. . ."
 
 echo 'net.ipv4.ip_forward = 1' > /etc/sysctl.conf
 
-echo 'net.ipv6.conf.all.forwarding = 1' >> /etc/sysctl.conf
+echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
+
+echo 'net.ipv6.conf.default.disable_ipv6 = 1' >> /etc/sysctl.conf
+
+echo 'net.ipv6.conf.lo.disable_ipv6 = 1' >> /etc/sysctl.conf
+
+echo 'net.ipv6.conf.eth0.disable_ipv6 = 1' >> /etc/sysctl.conf
 
 echo "正在开启BBR. . ."
 
