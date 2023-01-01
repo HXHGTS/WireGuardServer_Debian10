@@ -119,7 +119,7 @@ int InstallWireGuard(){
     system("curl -s ifconfig.me/ip > /etc/wireguard/servername.info");
     system("clear");
     printf("正在安装WireGuard. . . . . .\n");
-    system("apt install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) qrencode");
+    system("apt install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r)");
     printf("正在生成服务器配置. . . . . .\n");
     server_config = fopen("/etc/wireguard/wg0.conf", "w");
     fprintf(server_config, "[Interface]\n");
@@ -220,11 +220,8 @@ int AddUser() {
     fclose(client_config); 
     system("rm -f /etc/wireguard/psk");
     printf("\n成功添加用户！\n");
-    printf("\n电脑版WireGuard客户端建议复制以下内容添加:\n\n");
+    printf("\nWireGuard客户端建议复制以下内容添加:\n\n");
     sprintf(command, "cat /etc/wireguard/%s.conf", username);
-    system(command);
-    printf("\n\n手机版WireGuard客户端建议扫描以下二维码添加:\n\n");
-    sprintf(command, "qrencode -t ansiutf8 < /etc/wireguard/%s.conf", username);
     system(command);
     printf("\n生成的配置文件请不要在本机上改名或删除，如确实需要，请删除文件中内容，避免修改文件名!\n");
     system("sleep 1");
