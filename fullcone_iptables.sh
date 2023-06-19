@@ -100,4 +100,10 @@ lsmod | grep xt_FULLCONENAT
 
 echo -----------------------------------------------------
 
+curl -sSL https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/rc.local > /etc/rc.local
+
+chmod +x /etc/rc.local
+
+systemctl restart rc-local
+
 exit 0
