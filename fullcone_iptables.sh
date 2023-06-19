@@ -22,7 +22,7 @@ tar -jxvf libmnl-1.0.5.tar.bz2
 
 tar -jxvf libnftnl-1.2.5.tar.xz
 
-tar -jxvf iptables-1.8.9.tar.xz
+tar -xf iptables-1.8.9.tar.xz
 
 echo 正在删除项目文件. . .
 
