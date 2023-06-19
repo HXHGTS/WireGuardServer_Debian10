@@ -6,11 +6,9 @@ iptables -A FORWARD -i wg0 -j ACCEPT
 
 iptables -A FORWARD -o wg0 -j ACCEPT
 
-iptables -t nat -A POSTROUTING -o eth0 ! -p udp -j MASQUERADE
+iptables -t nat -A POSTROUTING -o eth0 -j FULLCONENAT
 
-iptables -t nat -A POSTROUTING -o eth0 -p udp -j FULLCONENAT --to-ports 30000-60000 --random-fully
-
-iptables -t nat -A PREROUTING -i eth0 -p udp -m multiport --dports 30000:60000 -j FULLCONENAT
+iptables -t nat -A PREROUTING -i eth0 -j FULLCONENAT
 
 iptables -L
 
