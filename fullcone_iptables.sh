@@ -2,7 +2,7 @@
 
 echo 正在安装编译所需依赖. . .
 
-apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libreadline-dev zlib1g-dev git pkg-config
+apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libreadline-dev zlib1g-dev git pkg-config autoconf libtool m4 automake
 
 echo 正在下载项目文件. . .
 
@@ -68,11 +68,11 @@ cd /root
 
 cp -f ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables-1.8.9/extensions/
 
-cp -f ~/netfilter-full-cone-nat/libip6t_FULLCONENAT.c ~/iptables-1.8.9/extensions/
-
 cd ~/iptables-1.8.9
 
 ln -sfv /usr/sbin/xtables-multi /usr/bin/iptables-xml
+
+bash /root/iptables-1.8.9/autogen.sh
 
 PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
