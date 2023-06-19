@@ -12,25 +12,25 @@ git clone https://github.com/Chion82/netfilter-full-cone-nat netfilter-full-cone
 
 wget https://www.netfilter.org/pub/libmnl/libmnl-1.0.5.tar.bz2 -O libmnl-1.0.5.tar.bz2
 
-wget https://www.netfilter.org/pub/libnftnl/libnftnl-1.2.4.tar.bz2 -O libnftnl-1.2.4.tar.bz2
+wget https://www.netfilter.org/pub/libnftnl/libnftnl-1.2.5.tar.xz -O libnftnl-1.2.5.tar.xz
 
-wget https://www.netfilter.org/projects/iptables/files/iptables-1.8.8.tar.bz2 -O iptables-1.8.8.tar.bz2
+wget https://www.netfilter.org/projects/iptables/files/iptables-1.8.9.tar.xz -O iptables-1.8.9.tar.xz
 
 echo 正在解压项目文件. . .
 
 tar -jxvf libmnl-1.0.5.tar.bz2
 
-tar -jxvf libnftnl-1.2.4.tar.bz2
+tar -jxvf libnftnl-1.2.5.tar.xz
 
-tar -jxvf iptables-1.8.8.tar.bz2
+tar -jxvf iptables-1.8.9.tar.xz
 
 echo 正在删除项目文件. . .
 
 rm -f libmnl-1.0.5.tar.bz2
 
-rm -f libnftnl-1.2.4.tar.bz2
+rm -f libnftnl-1.2.5.tar.xz
 
-rm -f iptables-1.8.8.tar.bz2
+rm -f iptables-1.8.9.tar.xz
 
 echo 编译安装libmnl. . .
 
@@ -44,7 +44,7 @@ make install
 
 echo 编译安装libnftnl. . .
 
-cd ~/libnftnl-1.2.4
+cd ~/libnftnl-1.2.5
 
 ./configure
 
@@ -66,11 +66,11 @@ echo 编译iptables. . .
 
 cd /root
 
-cp -f ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables-1.8.8/extensions/
+cp -f ~/netfilter-full-cone-nat/libipt_FULLCONENAT.c ~/iptables-1.8.9/extensions/
 
-cp -f ~/netfilter-full-cone-nat/libip6t_FULLCONENAT.c ~/iptables-1.8.8/extensions/
+cp -f ~/netfilter-full-cone-nat/libip6t_FULLCONENAT.c ~/iptables-1.8.9/extensions/
 
-cd ~/iptables-1.8.8
+cd ~/iptables-1.8.9
 
 ln -sfv /usr/sbin/xtables-multi /usr/bin/iptables-xml
 
