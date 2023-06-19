@@ -72,7 +72,7 @@ cd ~/iptables-1.8.9
 
 ln -sfv /usr/sbin/xtables-multi /usr/bin/iptables-xml
 
-bash /root/iptables-1.8.9/autogen.sh
+bash ~/iptables-1.8.9/autogen.sh
 
 PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
@@ -86,11 +86,11 @@ make install
 
 echo 部署Fullcone模块. . .
 
-cp -f ~/netfilter-full-cone-nat/xt_FULLCONENAT.ko  /lib/modules/$(uname -r)/
+cp -f ~/netfilter-full-cone-nat/xt_FULLCONENAT.ko /lib/modules/$(uname -r)/
 
 depmod
 
-echo "modprobe xt_FULLCONENAT" > /etc/modules-load.d/fullconenat.conf
+echo "modprobe xt_FULLCONENAT" >> /etc/modules-load.d/fullconenat.conf
 
 echo 下方有输出则安装完成:
 
@@ -99,11 +99,5 @@ echo -----------------------------------------------------
 lsmod | grep xt_FULLCONENAT
 
 echo -----------------------------------------------------
-
-curl -sSL https://raw.githubusercontent.com/HXHGTS/WireGuardServer_Debian10/main/rc.local > /etc/rc.local
-
-chmod +x /etc/rc.local
-
-systemctl restart rc-local
 
 exit 0
