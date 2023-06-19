@@ -20,7 +20,7 @@ echo 正在解压项目文件. . .
 
 tar -jxvf libmnl-1.0.5.tar.bz2
 
-tar -jxvf libnftnl-1.2.5.tar.xz
+tar -xf libnftnl-1.2.5.tar.xz
 
 tar -xf iptables-1.8.9.tar.xz
 
