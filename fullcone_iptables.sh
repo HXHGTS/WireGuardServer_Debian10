@@ -2,7 +2,7 @@
 
 echo 正在安装内核. . .
 
-apt install linux-image-$(uname -r)
+apt install -y linux-image-$(uname -r)
 
 echo 正在安装编译所需依赖. . .
 
