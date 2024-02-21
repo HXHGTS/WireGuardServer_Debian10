@@ -96,6 +96,16 @@ depmod
 
 echo "modprobe xt_FULLCONENAT" > /etc/modules-load.d/fullconenat.conf
 
+echo 调整iptables规则. . .
+
+iptables -t nat -A POSTROUTING -o eth0 -j FULLCONENAT
+
+iptables -t nat -A PREROUTING -i eth0 -p udp --dport ${wg_port} -j FULLCONENAT
+
+iptables -A FORWARD -i eth0 -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+iptables -A FORWARD -i wg0 -o eth0 -j ACCEPT
+
 echo 下方有输出则安装完成:
 
 echo -----------------------------------------------------
