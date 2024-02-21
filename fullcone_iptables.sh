@@ -1,5 +1,9 @@
 #!/bin/sh
 
+echo 正在安装内核. . .
+
+apt install linux-image-$(uname -r)
+
 echo 正在安装编译所需依赖. . .
 
 apt -y install cmake gcc g++ make libncurses5-dev libssl-dev libsodium-dev libreadline-dev zlib1g-dev git pkg-config autoconf libtool m4 automake
